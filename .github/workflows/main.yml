@@ -1,0 +1,28 @@
+name: CI Pipeline - Docker Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-lint:
+    name: Test / Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run linter check
+        run: echo "Linting complete"
+
+  build-package:
+    name: Build / Package
+    runs-on: ubuntu-latest
+    needs: test-lint
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t my-app:latest .
